@@ -19,11 +19,11 @@ public class MatrixFind {
 
     @Test
     public void test() {
-        int[][] arr = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+        int[][] arr = { { 1, 2, 8, 9 }, { 4, 7, 10, 13 } };
         // 解法一
-        method1(arr, 8);
+        method1(arr, 7);
         // 解法二
-        method2(arr, 10);
+        // method2(arr, 7);
     }
 
     /**
@@ -45,7 +45,7 @@ public class MatrixFind {
     }
 
     /**
-     * 以二维数组右上角为起点，数值比目标值大往下移，数值比目标值小往左移，以此往复，直至找到或是超出边界。
+     * 以二维数组右上角为起点，数值比目标值大往左移，数值比目标值小往下移，以此往复，直至找到或是超出边界。
      *
      * @param arr
      * @param target
@@ -53,21 +53,20 @@ public class MatrixFind {
     public void method2(int[][] arr, int target) {
         int leftBorder = 0;
         int bottomBorder = arr.length - 1;
-        int x = arr[0].length - 1;
-        int y = 0;
+        int x = 0;
+        int y = arr[0].length - 1;
 
-        while (x >= leftBorder && y <= bottomBorder) {
+        while (x <= bottomBorder && y >= leftBorder) {
             int temp = arr[x][y];
             if (temp == target) {
                 System.out.println("(" + x + "," + y + ")");
                 return;
             }
-            if (target > temp) {
-                y += 1;
-            }
             if (target < temp) {
-                x -= 1;
+                y -= 1;
+                continue;
             }
+            x += 1;
         }
 
         System.out.println("数组中不含有该整数");
