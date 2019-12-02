@@ -17,12 +17,12 @@ import org.junit.Test;
 public class JumpFloor {
 
     @Test
-    public void test(){
-        jumpFloor(0);
+    public void test() {
+        jumpFloor(2);
     }
 
     /**
-     * 解法一：
+     * 解法一：迭代
      *
      * @param target
      * @return
@@ -31,16 +31,20 @@ public class JumpFloor {
         if (target <= 0) {
             return 0;
         }
+        if (target == 1) {
+            return 1;
+        }
+        if (target == 2) {
+            return 2;
+        }
 
-        // count种跳法
-        int count = 1;
-        // 跳2级的数量
-        int n = 1;
-        while (target > 2 * n) {
-
-            count++;
-            n++;
-
+        int count = 0;
+        int jump1 = 1;
+        int jump2 = 0;
+        for (int i = 1; i <= target; i++) {
+            count = jump1 + jump2;
+            jump2 = jump1;
+            jump1 = count;
         }
 
         return count;
